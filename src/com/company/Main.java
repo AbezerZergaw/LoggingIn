@@ -84,6 +84,10 @@ public class Main {
                         System.out.println("Enter Role name");
                         roleName = input.nextLine();
                         roles.setName(roleName);
+                        System.out.println("Add User to role");
+
+                        search =input.nextLine();
+                        user =findUser(search,allUser);
                         System.out.println("Do you want to add more role? yes or no");
                         moreRole = input.nextLine();
                     } while (moreRole.equalsIgnoreCase("yes"));
@@ -134,5 +138,14 @@ public class Main {
             }
         }
         return foundRole;
+    }
+    public static User findUser(String name, ArrayList<User> userSearch){
+        User foundUser = null;
+        for(User eachUser: userSearch){
+            if(name.equalsIgnoreCase(eachUser.getUserName())){
+                foundUser=eachUser;
+            }
+        }
+        return foundUser;
     }
 }
