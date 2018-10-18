@@ -6,16 +6,17 @@ public class Role {
     private long id;
     private String name;
     private ArrayList<User> users;
+private static int count=100;
 
 
-
-    public Role(long id , String name){
-        this.id= id;
+    public Role(String name){
+        id= count++;
         this.name=name;
 
     }
 
     public Role() {
+        id= count++;
         users = new ArrayList<User>();
     }
 

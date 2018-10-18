@@ -18,21 +18,22 @@ public class Main {
         String name;
         Role roles;
 
-        roles = new Role(12345, "Admin");
+        roles = new Role("Admin");
         allRole.add(roles);
 
-        roles = new Role(1111, "Editor");
+        roles = new Role("Editor");
         allRole.add(roles);
 
         String userName, password, roleName;
         String search = "";
-        long UserId, roleID;
+
         int menu = 0;
         String moreRole;
 
         do {
 
-            System.out.println("1.Sign up \n2.Sign In\n3.Add Role\n4.List of roles\n5.List of users\n6.List of Users with role\n7.Quit");
+            System.out.println("1.Sign up \n2.Sign In\n3.Add Role" +
+                    "\n4.List of roles\n5.List of users\n6.Quit");
 
             menu = input.nextInt();
             input.nextLine();
@@ -49,20 +50,26 @@ public class Main {
                     System.out.println("Enter Password");
                     password = input.nextLine();
                     user.setPassword(password);
-                    System.out.println("Enter ID");
-                    UserId = input.nextLong();
-                    input.nextLine();
-                    user.setId(UserId);
+
+
                     do {
 
                         System.out.println("Search Role by Name");
                         search = input.nextLine();
                         roles = findRole(search, allRole);
-                        if (roles != null) {
+
+                        // check if the role is already in the user or not
+
+                      if(!user.getRoles().contains(roles)){
+                          user.getRoles().add(roles);
+                      }
+                      else
+                          System.out.println("the role already exist in the user" );
+                      /*  if (roles != null) {
                             user.addRole(roles);
 
-                        } else
-                            System.out.println("Role not found");
+                        } else*/
+                          //  System.out.println("Role not found");
 
                         System.out.println("Do you want to add more Role? yes or no");
                         moreRole = input.nextLine();
@@ -72,44 +79,42 @@ public class Main {
                     break;
                 case 2:
                     //sign in
+                    // add role to the user
+                    System.out.println("    Sign In");
+                    System.out.println("Enter your UserName");
+                    String userNameSignIn = input.nextLine();
+
+
+
                     break;
                 case 3:
                     //adding role
                     do {
+                        Role role =new Role();
                         System.out.println("       Add new role");
-                        System.out.println("Enter Role Id");
-                        roleID = input.nextLong();
-                        input.nextLine();
-                        roles.setId(roleID);
                         System.out.println("Enter Role name");
                         roleName = input.nextLine();
-                        roles.setName(roleName);
-                        System.out.println("Add User to role");
+                        role.setName(roleName);
+                      /*  System.out.println("Add User to role");
 
                         search =input.nextLine();
-                        user =findUser(search,allUser);
+                        user =findUser(search,allUser);*/
                         System.out.println("Do you want to add more role? yes or no");
                         moreRole = input.nextLine();
+                        allRole.add(role);
                     } while (moreRole.equalsIgnoreCase("yes"));
-                    allRole.add(roles);
+
                     break;
                 case 4:
                     System.out.println("    List of roles");
+                    System.out.println("the size of the role "+allRole.size());
                     for (Role role : allRole) {
                         System.out.println("ID: " + role.getId() + "\nName: " + role.getName() + "\n");
                     }
 
-
                     break;
                 case 5:
-
-                    System.out.println("   List of Users");
-                    for (User userList : allUser) {
-                        System.out.println("User ID: " + userList.getId() + "\nUser name: " + userList.getUserName() + "\n");
-                    }
-                    break;
-                case 6:
-                    System.out.println("      List of Users with role");
+                    System.out.println("      List of Users");
                     for (User searchUser : allUser) {
                         System.out.println("ID: " + searchUser.getId() + "\nUser Name: " + searchUser.getUserName()
                                 + "\nRole:");
@@ -118,12 +123,13 @@ public class Main {
                         }
                     }
                     break;
-                case 7:
+                case 6:
                     System.out.println("Thank you bye!!");
                     break;
+
             }
 
-        } while (menu != 7);
+        } while (menu != 6);
 
 
     }

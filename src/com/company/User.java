@@ -8,14 +8,14 @@ public class User {
     private String userName;
     private String password;
     private ArrayList<Role> roles;
-
+    private static int count=1000;
     public User() {
-
+        id = count++;
         roles = new ArrayList<Role>();
     }
 
-    public User(long id, String userName, String password, ArrayList<Role> roles) {
-        this.id = id;
+    public User(String userName, String password, ArrayList<Role> roles) {
+        id = count++;
         this.userName = userName;
         this.password = password;
         this.roles = roles;
